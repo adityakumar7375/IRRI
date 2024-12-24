@@ -98,12 +98,12 @@
                         <thead>
                            <tr class="border-bottom-primary">
                               <th scope="col">Id</th>
-                              <th scope="col">particulars</th>
-                              <th scope="col">variety_code</th>
+                              <th scope="col">Particulars</th>
+                              <th scope="col">Variety Code</th>
                               <th scope="col">State</th>
-                              <th scope="col">country</th>
-                              <th scope="col">region</th>
-                              <th scope="col">special_group</th>
+                              <th scope="col">Country</th>
+                              <th scope="col">Region</th>
+                              <th scope="col">Special Group</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -114,7 +114,7 @@
                               <tr class="border-bottom-secondary">
                                  <th scope="row">{{$i++}}</th>
                                  <td>{{$list->particulars}}</td>
-                                 <td>{{$list->variety_code}}</td>
+                                 <td><a href="{{ route('csv.detail', ['id' => $list->id]) }}"><span class="badge badge-success">{{$list->variety_code}}</span></a></td>
                                  <td>{{$list->state}}</td>
                                  <td>{{$list->country}}</td>
                                  <td>{{$list->region}}</td>

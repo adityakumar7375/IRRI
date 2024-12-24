@@ -333,8 +333,30 @@
 										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-file"></use>
 									</svg>
 									<svg class="fill-icon">
-										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-file"></use>
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-file"></use>e>
 									</svg><span>Locations</span>
+								</a>
+							</li>
+
+							<li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+								<a class="sidebar-link sidebar-title link-nav" href="{{route('region')}}">
+									<svg class="stroke-icon">
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-social"></use>
+									</svg>
+									<svg class="fill-icon">
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-social"></use>e>
+									</svg><span>Region</span>
+								</a>
+							</li>
+
+							<li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+								<a class="sidebar-link sidebar-title link-nav" href="{{route('variety.code')}}">
+									<svg class="stroke-icon">
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-animation"></use>
+									</svg>
+									<svg class="fill-icon">
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-animation"></use>e>
+									</svg><span>Variety Code</span>
 								</a>
 							</li>
 
@@ -345,7 +367,7 @@
 										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-gallery"></use>
 									</svg>
 									<svg class="fill-icon">
-										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-gallery"></use>
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-gallery"></use>e>
 									</svg><span>Gallery</span>
 								</a>
 							</li>
@@ -354,10 +376,10 @@
 							<li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
 								<a class="sidebar-link sidebar-title link-nav" href="{{route('user.list')}}">
 									<svg class="stroke-icon">
-										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-user"></use>
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-contact"></use>
 									</svg>
 									<svg class="fill-icon">
-										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-user"></use>e>
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-contact"></use>e>
 									</svg><span>User List</span>
 								</a>
 							</li>
@@ -381,14 +403,13 @@
 							<li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
 								<a class="sidebar-link sidebar-title link-nav" href="{{route('history.list')}}">
 									<svg class="stroke-icon">
-										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-user"></use>
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#stroke-search"></use>
 									</svg>
 									<svg class="fill-icon">
-										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-user"></use>e>
+										<use href="{{asset('public/admin')}}/assets/svg/icon-sprite.svg#fill-search"></use>e>
 									</svg><span>History List</span>
 								</a>
 							</li>
-
 
 
 

@@ -14,6 +14,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\VarietyCodeController;
+use App\Http\Controllers\RegionController;
 
 
 Route::get('/sign-up', [UserController::class, 'sign_up'])->name('sign-up');
@@ -86,6 +88,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/upload-excle', [CsvImportController::class, 'index'])->name('upload-excle');
         Route::get('csv/import', [CsvImportController::class, 'showForm']);
         Route::post('csv/import', [CsvImportController::class, 'import'])->name('csv.import');
+        
+        Route::get('csv/detail/{id}', [CsvImportController::class, 'detail'])->name('csv.detail');
+
 
 
 
@@ -99,6 +104,18 @@ Route::middleware('auth')->group(function () {
 
      //HistoryController 
      Route::get('/history/list', [HistoryController::class, 'index'])->name('history.list');  
+
+
+
+     //VarietyCodeController
+     Route::get('/variety/code', [VarietyCodeController::class, 'index'])->name('variety.code'); 
+     Route::post('/variety/store', [VarietyCodeController::class, 'store'])->name('variety.store'); 
+
+
+     //RegionController
+
+     Route::get('/region', [RegionController::class, 'index'])->name('region'); 
+     Route::post('/region/store', [RegionController::class, 'store'])->name('region.store'); 
 
 
 

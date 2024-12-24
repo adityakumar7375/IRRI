@@ -23,6 +23,37 @@ class CsvImportController extends Controller
         return view('import.index', compact('riceData'));
     }
 
+
+    public function detail($id)
+    {
+        $csvDetail = RiceData::find($id); // Adjust the model name to match your actual model
+
+        // Check if the record was found
+        if (!$csvDetail) {
+            return redirect()->route('import.index')->with('error', 'CSV detail not found.');
+        }
+
+
+        // Return a view with the data
+        return view('import.detail', compact('csvDetail'));
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
     public function upload(Request $request)
     {
 

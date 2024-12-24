@@ -115,10 +115,21 @@
         <div class="modal-toggle-wrapper">
           <h4 class="mb-2">IMAGE GALLERY</h4>
           <p> Fill in your information below to continue.</p>
-          <form class="row g-3  submitForm" action="{{ route('store') }}" method="post" data-custom="GalleryModel" enctype="multipart/form-data"> @csrf <div class="col-md-12 mt-3 mb-4">
+          <form class="row g-3  submitForm" action="{{ route('store') }}" method="post" data-custom="GalleryModel" enctype="multipart/form-data"> @csrf 
+            
+            <div class="col-md-12 mt-3">
+              <label class="form-label" for="inputEmailEnter">Title</label>
+              <input class="form-control" required name="title" type="text" placeholder="Enter Title">
+            </div>
+
+            <div class="col-md-12 mt-3 mb-4">
               <label class="form-label" for="inputEmailEnter">Enter Image</label>
               <input class="form-control" required name="img" type="file" placeholder="Enter Image">
             </div>
+
+
+
+
             <div class="col-12 mt-2 mb-3 text-center">
               <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
               <button class="btn btn-primary" type="submit">Submit </button>

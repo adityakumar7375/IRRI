@@ -5,25 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Gallery;
+use App\Models\VarietyCode;
 
-class GalleryController extends Controller
+class VarietyCodeController extends Controller
 {
     public function index()
     {
-        $images = Gallery::paginate(10);
-        return view('gallery.index', compact('images'));
+        $data['variety']=VarietyCode::where('is_status',1)->get();
+        return view('variety.index',$data);
     }
 
     
-
     public function store(Request $request)
     {
         
         if ($request->isMethod('post')) {
-            $data = $request->only(['title','img']);
+            $data = $request->only(['name','variety_code','img']);
             $validator = Validator::make($data, [
-                'title' => 'required',
+                'name' => 'required',
+                'variety_code' => 'required',
                 'img' => 'required',
             ]);
     
@@ -39,10 +39,11 @@ class GalleryController extends Controller
             $imgurl = '';
             if ($request->hasFile('img')) {
                 $file = $request->file('img');
-                $imgurl = $file->store('gallery', 'public');
+                $imgurl = $file->store('variety', 'public');
             }
-            Gallery::create([
-                'title' =>$request->title,
+            VarietyCode::create([
+                'name' =>strtoupper($request->name),
+                'variety_code' => strtoupper($request->variety_code),
                 'img' => 'app/public/'.$imgurl,
                 'status' => true,
                 'is_status' => true,
@@ -51,7 +52,7 @@ class GalleryController extends Controller
             // Return success response
             return response()->json([
                 'error' => 200,
-                'url' => route('gallery.index'),
+                'url' => route('variety.code'),
                 'msg' => 'Created Successfully',
             ]);
         }
@@ -62,14 +63,6 @@ class GalleryController extends Controller
             'msg' => 'Only POST method is allowed',
         ]);
     }
-
-
-
-
-
-
-
-
 
 
 
