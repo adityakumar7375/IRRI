@@ -56,117 +56,119 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.5/dist/bootstrap-table.min.css">
 
-		<style>
-			.img-thumbnail {
-				padding: 0.25rem;
-				background-color: var(--bs-body-bg);
-				border: var(--bs-border-width) solid var(--bs-border-color);
-				border-radius: var(--bs-border-radius);
-				max-width: 100%;
-				height: 200px;
-				object-fit: cover;
+	<style>
+		.img-thumbnail {
+			padding: 0.25rem;
+			background-color: var(--bs-body-bg);
+			border: var(--bs-border-width) solid var(--bs-border-color);
+			border-radius: var(--bs-border-radius);
+			max-width: 100%;
+			height: 200px;
+			object-fit: cover;
+		}
+		*{
+			font-family: "Poppins", serif;
+			font-style: normal;
+		}
+		.parsley-required {
+				color: red;
 			}
-			*{
-				font-family: "Poppins", serif;
-  				font-style: normal;
-			}
-			.parsley-required {
-					color: red;
-				}
-			.social-profile {
-				text-align: center;
-				background-image: url("{{asset('public/admin')}}/assets/images/dashboard-3/profile-bg.png");
-				background-repeat: no-repeat;
-				background-size: cover;
-			}
-			.loader-wrapper-1 {
-				height: 100%;
-				width: 100%;
-				display: -webkit-box;
-				display: -ms-flexbox;
-				display: flex;
-				-webkit-box-align: center;
-					-ms-flex-align: center;
-						align-items: center;
-				-webkit-box-pack: center;
-					-ms-flex-pack: center;
-						justify-content: center;
-				position: fixed;
-				background-color: #fff;
-				z-index: 9999;
-				top: 0;
-			}
-			.loader-wrapper-1 .loader4 {
-				position: relative;
-				color: var(--theme-deafult);
-				font-size: 50px;
-				text-indent: -9999em;
-				width: 1em;
-				height: 1em;
-				border-radius: 50%;
-				-webkit-transform: translateZ(0);
-						transform: translateZ(0);
-				-webkit-animation: loader4 1.7s infinite ease, loader4Round 1.7s infinite ease;
-						animation: loader4 1.7s infinite ease, loader4Round 1.7s infinite ease;
-				overflow: hidden;
-			}
-			.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper {
-    position: fixed;
-    top: 0;
-    z-index: 9;
-    height: 100%;
-    line-height: inherit;
-    /* background: #216438; */
-    width: 265px;
-    text-align: left;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    -webkit-box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
-    box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
- 
-  /* Add this to your app's CSS file */
-.pagination-container {
-    text-align: center;
-    /* margin-top: 20px; */
-}
+		.social-profile {
+			text-align: center;
+			background-image: url("{{asset('public/admin')}}/assets/images/dashboard-3/profile-bg.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.loader-wrapper-1 {
+			height: 100%;
+			width: 100%;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+				-ms-flex-align: center;
+					align-items: center;
+			-webkit-box-pack: center;
+				-ms-flex-pack: center;
+					justify-content: center;
+			position: fixed;
+			background-color: #fff;
+			z-index: 9999;
+			top: 0;
+		}
+		.loader-wrapper-1 .loader4 {
+			position: relative;
+			color: var(--theme-deafult);
+			font-size: 50px;
+			text-indent: -9999em;
+			width: 1em;
+			height: 1em;
+			border-radius: 50%;
+			-webkit-transform: translateZ(0);
+					transform: translateZ(0);
+			-webkit-animation: loader4 1.7s infinite ease, loader4Round 1.7s infinite ease;
+					animation: loader4 1.7s infinite ease, loader4Round 1.7s infinite ease;
+			overflow: hidden;
+		}
+		.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper {
+			position: fixed;
+			top: 0;
+			z-index: 9;
+			height: 100%;
+			line-height: inherit;
+			/* background: #216438; */
+			width: 265px;
+			text-align: left;
+			-webkit-transition: 0.3s;
+			transition: 0.3s;
+			-webkit-box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+			box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+		}
+				
+			/* Add this to your app's CSS file */
+		.pagination-container {
+			text-align: center;
+			/* margin-top: 20px; */
+		}
 
-.pagination {
-    display: inline-flex;
-    padding-left: 0;
-    list-style: none;
-    border-radius: 0.25rem;
-    text-align: center;
-    /* padding: 10px; */
-    margin: auto;
-}
+		.pagination {
+			display: inline-flex;
+			padding-left: 0;
+			list-style: none;
+			border-radius: 0.25rem;
+			text-align: center;
+			/* padding: 10px; */
+			margin: auto;
+		}
 
-.pagination a,
-.pagination span {
-    padding: 10px 15px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    color: #007bff;
-    text-decoration: none;
-}
+		.pagination a,
+		.pagination span {
+			padding: 10px 15px;
+			margin: 0 5px;
+			border: 1px solid #ddd;
+			color: #007bff;
+			text-decoration: none;
+		}
 
-.pagination a:hover,
-.pagination span:hover {
-    background-color: #f1f1f1;
-}
+		.pagination a:hover,
+		.pagination span:hover {
+			background-color: #f1f1f1;
+		}
 
-.pagination .active {
-    /* background-color: #007bff; */
-    color: white;
-}
+		.pagination .active {
+			/* background-color: #007bff; */
+			color: white;
+		}
 
-.pagination .disabled {
-    color: #ccc;
-    pointer-events: none;
-}
-
+		.pagination .disabled {
+			color: #ccc;
+			pointer-events: none;
+		}
+		.badge{
+			cursor: pointer;
+		}
 </style>
 
 </head>
@@ -591,8 +593,9 @@
 
 	<script src="{{asset('public/admin')}}/extra/parsley.min.js"></script>
 	<script src="{{asset('public/admin')}}/extra/iziToast.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- <script src="{{asset('public/admin')}}/assets/js/sweet-alert/sweetalert.min.js"></script> -->
 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.5/dist/bootstrap-table.min.js"></script>
 
   
@@ -669,6 +672,12 @@
                      text: response.msg,
                      icon: "success"
                   });
+
+				  if (response.url != '') {
+                     window.setTimeout(function() {
+                        window.location.href = response.url;
+                     }, 3000);
+                  }
                   }
                   if (response.error == 201) {
                      Swal.fire({
@@ -677,18 +686,14 @@
                         icon: "error"
                      });
                   }
-                  if (response.url != '') {
-                     window.setTimeout(function() {
-                        window.location.href = response.url;
-                     }, 3000);
-                  }
+                  
                },
                error: function() {
-               Swal.fire({
-                  title: "Warning",
-                  text: 'Server Error',
-                  icon: "error"
-               });
+					Swal.fire({
+						title: "Warning",
+						text: 'Server Error',
+						icon: "error"
+					});
                   $(".wait").hide();
                }
         	});
@@ -698,6 +703,79 @@
        } 
   	});
 
+	function DeleteMyData(id,table){
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: "btn btn-success",
+				cancelButton: "btn btn-danger"
+			},
+			buttonsStyling: false
+			});
+			swalWithBootstrapButtons.fire({
+			title: "Are you sure?",
+			text: "This action is irreversible. Are you sure you want to proceed?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes, Delete!",
+			cancelButtonText: "No, cancel!",
+			reverseButtons: true
+			}).then((result) => {
+			if (result.isConfirmed) {
+				let url = "{{ route('delete', ['id' => ':id', 'any' => ':any']) }}";
+				url = url.replace(':id', id).replace(':any', table);
+				location.href = url;
+			} else if (
+				/* Read more about handling dismissals below */
+				result.dismiss === Swal.DismissReason.cancel
+			) {
+				swalWithBootstrapButtons.fire({
+				title: "Cancelled",
+				text: "Your imaginary file is safe :)",
+				icon: "error"
+				});
+			}
+		});
+	}
+	
+
+	function UpdateMyData(id,table,status){
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: "btn btn-success",
+				cancelButton: "btn btn-danger"
+			},
+			buttonsStyling: false
+			});
+			swalWithBootstrapButtons.fire({
+			title: "Are you sure?",
+			text: "This action is irreversible. Are you sure you want to proceed?",
+			icon: "info",
+			showCancelButton: true,
+			confirmButtonText: "Yes, update!",
+			cancelButtonText: "No, cancel!",
+			reverseButtons: true
+			}).then((result) => {
+			if (result.isConfirmed) {
+				let url = "{{ route('update-status', ['id' => ':id', 'any' => ':any','status'=>':status']) }}";
+				url = url.replace(':id', id).replace(':any', table).replace(':status', status);
+				location.href = url;
+			} else if (
+				/* Read more about handling dismissals below */
+				result.dismiss === Swal.DismissReason.cancel
+			) {
+				swalWithBootstrapButtons.fire({
+				title: "Cancelled",
+				text: "Your imaginary file is safe :)",
+				icon: "error"
+				});
+			}
+		});
+	}
+	
+	
+	
+	
+	
 	</script>
 	 @yield('js')
 </body>

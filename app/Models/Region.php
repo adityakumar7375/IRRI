@@ -10,6 +10,7 @@ class Region extends Model
         'name',
         'country',
         'state',
+        'status',
         'is_status',
     ];
 }

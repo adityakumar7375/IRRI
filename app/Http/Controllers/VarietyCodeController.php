@@ -30,9 +30,15 @@ class VarietyCodeController extends Controller
             
             if ($validator->fails()) {
                 return response()->json([
-                    'error' => 401,
+                    'error' => 201,
                     'msg' => 'Please fill in all fields.',
-                    'errors' => $validator->errors()
+                ]);
+            }
+
+            if (VarietyCode::where('variety_code', strtoupper($request->variety_code))->exists()) {
+                return response()->json([
+                    'error' => 201,
+                    'msg' => 'The variety code already exists.',
                 ]);
             }
     
@@ -59,7 +65,7 @@ class VarietyCodeController extends Controller
     
         
         return response()->json([
-            'error' => 401,
+            'error' => 201,
             'msg' => 'Only POST method is allowed',
         ]);
     }

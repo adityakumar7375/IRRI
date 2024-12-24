@@ -16,5 +16,9 @@ class State extends Model
    protected $hidden = ['created_at', 'updated_at','is_status'];
 
    // Define any relationships here (e.g., if states have many cities)
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
   
 }

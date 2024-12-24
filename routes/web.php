@@ -16,6 +16,7 @@ use App\Http\Controllers\TrackController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\VarietyCodeController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\CommonController;
 
 
 Route::get('/sign-up', [UserController::class, 'sign_up'])->name('sign-up');
@@ -51,72 +52,77 @@ Route::get('/get-states', [WebController::class, 'getStates']);
 Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::middleware('auth')->group(function () {
 
-        // web
-        Route::get('/my-profile', [UserController::class, 'my_profile'])->name('my-profile');
-        Route::post('/update/user/account', [UserController::class, 'update_account']);
-      
-        Route::get('/change-password', [UserController::class, 'change_password'])->name('change-password');
-        Route::post('/change-password', [UserController::class, 'update_password']);
-      
+    // web
+    Route::get('/my-profile', [UserController::class, 'my_profile'])->name('my-profile');
+    Route::post('/update/user/account', [UserController::class, 'update_account']);
+    
+    Route::get('/change-password', [UserController::class, 'change_password'])->name('change-password');
+    Route::post('/change-password', [UserController::class, 'update_password']);
+    
 
 
-        // Admin
+    // Admin
 
 
-        Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-      
-        //ProfileController
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    //ProfileController
 
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-        Route::post('/profile', [ProfileController::class, 'updatePassword']);
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'updatePassword']);
 
-        //GalleryController
+    //GalleryController
 
-        Route::get('/gallery/index', [GalleryController::class, 'index'])->name('gallery.index');
-        Route::post('/store', [GalleryController::class, 'store'])->name('store');
+    Route::get('/gallery/index', [GalleryController::class, 'index'])->name('gallery.index');
+    Route::post('/store', [GalleryController::class, 'store'])->name('store');
 
-        // account
-         Route::get('/location', [LocationController::class, 'index'])->name('location');
-         Route::post('/state', [LocationController::class, 'state'])->name('state');
-         Route::post('/country', [LocationController::class, 'country'])->name('country');
-       
+    // account
+        Route::get('/location', [LocationController::class, 'index'])->name('location');
+        Route::post('/state', [LocationController::class, 'state'])->name('state');
+        Route::post('/country', [LocationController::class, 'country'])->name('country');
+    
 
-        // upload-excle
-        
-        Route::post('/upload-bulk-data', [CsvImportController::class, 'upload'])->name('upload.bulk.data');
-        Route::get('/upload-excle', [CsvImportController::class, 'index'])->name('upload-excle');
-        Route::get('csv/import', [CsvImportController::class, 'showForm']);
-        Route::post('csv/import', [CsvImportController::class, 'import'])->name('csv.import');
-        
-        Route::get('csv/detail/{id}', [CsvImportController::class, 'detail'])->name('csv.detail');
-
-
+    // upload-excle
+    
+    Route::post('/upload-bulk-data', [CsvImportController::class, 'upload'])->name('upload.bulk.data');
+    Route::get('/upload-excle', [CsvImportController::class, 'index'])->name('upload-excle');
+    Route::get('csv/import', [CsvImportController::class, 'showForm']);
+    Route::post('csv/import', [CsvImportController::class, 'import'])->name('csv.import');
+    
+    Route::get('csv/detail/{id}', [CsvImportController::class, 'detail'])->name('csv.detail');
 
 
-        // UserAdminController
-         Route::get('/user/list', [UserAdminController::class, 'index'])->name('user.list');
 
-        //end  UserAdminController
+
+    // UserAdminController
+    Route::get('/user/list', [UserAdminController::class, 'index'])->name('user.list');
+
+    //end  UserAdminController
 
     //TrackController
-        Route::get('/track/user', [TrackController::class, 'index'])->name('track.user');
+    Route::get('/track/user', [TrackController::class, 'index'])->name('track.user');
 
-     //HistoryController 
-     Route::get('/history/list', [HistoryController::class, 'index'])->name('history.list');  
-
-
-
-     //VarietyCodeController
-     Route::get('/variety/code', [VarietyCodeController::class, 'index'])->name('variety.code'); 
-     Route::post('/variety/store', [VarietyCodeController::class, 'store'])->name('variety.store'); 
+    //HistoryController 
+    Route::get('/history/list', [HistoryController::class, 'index'])->name('history.list');  
 
 
-     //RegionController
 
-     Route::get('/region', [RegionController::class, 'index'])->name('region'); 
-     Route::post('/region/store', [RegionController::class, 'store'])->name('region.store'); 
+    //VarietyCodeController
+    Route::get('/variety/code', [VarietyCodeController::class, 'index'])->name('variety.code'); 
+    Route::post('/variety/store', [VarietyCodeController::class, 'store'])->name('variety.store'); 
 
+
+    //RegionController
+
+    Route::get('/region', [RegionController::class, 'index'])->name('region'); 
+    Route::post('/region/store', [RegionController::class, 'store'])->name('region.store'); 
+
+    //  commoun model
+
+    Route::get('/delete/{id}/{any}', [CommonController::class, 'delete'])->name('delete');
+    Route::get('/update-status/{id}/{any}/{status}', [CommonController::class, 'update'])->name('update-status');
+    Route::get('/get-states/{country_id}', [CommonController::class, 'getStates'])->name('get-states');
 
 
 });

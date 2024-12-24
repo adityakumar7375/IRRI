@@ -13,12 +13,27 @@ class RegionController extends Controller
 {
     //region
 
-    public function index()
+    public function index(Request $request)
     {
         $data['country']=Country::where('is_status',1)->get();
         $data['state']=State::where('is_status',1)->get();
-        $data['region']=Region::where('is_status',1)->get();
+
+        $search = $request->input('search'); // Get search term from input
+
+        $data['region'] = Region::where('is_status', 1)
+            ->when($search, function ($query, $search) {
+                $query->where('state', 'like', "%$search%")
+                    ->orWhere('country', 'like', "%$search%")
+                    ->orWhere('name', 'like', "%$search%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(50);
+
+
+       
         return view('region.index',$data);
+
+
     }
 
     

@@ -24,10 +24,20 @@
 </div>
 <div class="container-fluid ">
    <div class="row">
-      <div class="col-sm-5">
+      <div class="col-sm-12">
+         @if (session('success'))
+            <div class="alert alert-success">
+               {{ session('success') }}
+            </div>
+         @endif
 
-      
-                  
+         @if (session('error'))
+            <div class="alert alert-danger">
+               {{ session('error') }}
+            </div>
+         @endif
+      </div>
+      <div class="col-sm-5">
          <div class="card">
             <div class="card-header">
                <div class="row">
@@ -56,9 +66,10 @@
                               <tr class="border-bottom-secondary">
                                  <th scope="row">{{$i++}}</th>
                                  <td>{{$list->name}}</td>
-                                 <td>@if($list->status==1)<span class="badge badge-light-success">Active</span>@else<span class="badge badge-light-danger">Deactive</span>@endif</td>
-                                 <td class="text-center">
-                                 <a href="#"><i class="fa fa-pencil-alt"></i></a>
+                                 <td>@if($list->status==1)<span class="badge badge-light-success" onclick="ActiveFunction('{{$list->id}}','countries')">Active</span>@else<span class="badge badge-light-danger" onclick="DeactiveFunction('{{$list->id}}','countries')">Deactive</span>@endif</td>
+                                 <td class="text-left">
+                                 <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a>
+                                 <a href="#" onclick="DeleteFunction('{{$list->id}}','countries')"><button  class="btn btn-outline-danger btn-square btn-xs"><i class="fa fa-trash"></i></button></a>
                                  </td>
                               </tr>
                            @endforeach
@@ -107,9 +118,10 @@
                                  <th scope="row">{{$i++}}</th>
                                  <td>{{$list->country}}</td>
                                  <td>{{$list->state}}</td>
-                                 <td>@if($list->status==1)<span class="badge badge-light-success">Active</span>@else<span class="badge badge-light-danger">Deactive</span>@endif</td>
-                                 <td class="text-center">
-                                 <a href="#"><i class="fa fa-pencil-alt"></i></a>
+                                 <td>@if($list->status==1)<span class="badge badge-light-success" onclick="ActiveFunction('{{$list->id}}','states')">Active</span>@else<span class="badge badge-light-danger" onclick="DeactiveFunction('{{$list->id}}','states')">Deactive</span>@endif</td>
+                                 <td class="text-left">
+                                 <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a>
+                                 <a href="#" onclick="DeleteFunction('{{$list->id}}','states')"><button  class="btn btn-outline-danger btn-square btn-xs"><i class="fa fa-trash"></i></button></a>
                                  </td>
                               </tr>
                            @endforeach
@@ -189,3 +201,17 @@
 </div>
 
 @endsection 
+
+@section('js')
+<script>
+   function DeleteFunction(id,table){
+      DeleteMyData(id,table);
+   }
+   function ActiveFunction(id,table){
+      UpdateMyData(id,table,false);
+   }
+   function DeactiveFunction(id,table){
+      UpdateMyData(id,table,true);
+   }
+</script>
+@endsection

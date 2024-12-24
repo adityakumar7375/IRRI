@@ -1,46 +1,4 @@
 @extends('layout.app') @section('content') 
-<style>
-  /* Add this to your app's CSS file */
-.pagination-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.pagination {
-    display: inline-flex;
-    padding-left: 0;
-    list-style: none;
-    border-radius: 0.25rem;
-    text-align: center;
-    padding: 10px;
-    margin: auto;
-}
-
-.pagination a,
-.pagination span {
-    padding: 10px 15px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.pagination a:hover,
-.pagination span:hover {
-    background-color: #f1f1f1;
-}
-
-.pagination .active {
-    /* background-color: #007bff; */
-    color: white;
-}
-
-.pagination .disabled {
-    color: #ccc;
-    pointer-events: none;
-}
-
-</style>
 
 <div class="container-fluid">
   <div class="page-title">
