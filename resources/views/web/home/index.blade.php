@@ -87,7 +87,7 @@
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Search by Variety</label>
-										<select class="form-control" id="country" name="country"  aria-label="Default select example">
+										<select class="form-control" id="country" name="variety"  aria-label="Default select example">
 											<option selected>Select</option>
 											@foreach($variety as $list)
 											<option value="{{ $list->variety_code }}">{{ $list->name }}</option>
