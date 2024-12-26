@@ -17,8 +17,9 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\VarietyCodeController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CommonController;
+use Mews\Captcha\Captcha;
 
-
+Route::get('/captcha', [Captcha::class, 'create'])->name('captcha');
 Route::get('/sign-up', [UserController::class, 'sign_up'])->name('sign-up');
 Route::post('/sign-up', [RegisterController::class, 'register']);
 Route::post('/search-result', [CommonController::class, 'search_result']);

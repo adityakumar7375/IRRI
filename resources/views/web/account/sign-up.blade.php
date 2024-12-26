@@ -100,6 +100,20 @@
 										@enderror
 									</div>
 								</div>
+								<div class="col-md-12">
+									<label for="captcha" class="form-label">CAPTCHA</label>
+									<div class="mb-2">
+										<img src="{{ captcha_src() }}" id="captcha-image" alt="captcha">
+										<button type="button" class="btn btn-link btn-sm" id="refresh-captcha">Refresh</button>
+									</div>
+									<input type="text" name="captcha" class="form-control" id="captcha" required>
+									
+									@if ($errors->has('captcha'))
+										<div class="text-danger">
+											{{ $errors->first('captcha') }}
+										</div>
+									@endif
+								</div>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="common-btn login-btn">Register Now</button>
@@ -118,7 +132,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 	<script src="{{asset('public/web')}}/js/owl.carousel.js"></script>
 	<script src="{{asset('public/web')}}/js/custom.js"></script>
-	
+
+<script>
+    $('#refresh-captcha').on('click', function () {
+        $('#captcha-image').attr('src', '{{ captcha_src() }}' + '?' + Math.random());
+    });
+</script>
 </body>
 
 </html>
