@@ -34,11 +34,7 @@ class LoginController extends Controller
             
 
             $ipAddress = $request->ip();
-
-            // Get the user's location based on the IP address
             $locationData = $this->getLocationByIp($ipAddress);
-
-            // Get the User-Agent string (browser and OS details)
             $userAgent = $request->header('User-Agent');
             $browser = $this->getBrowser($userAgent);
             $os = $this->getOperatingSystem($userAgent);

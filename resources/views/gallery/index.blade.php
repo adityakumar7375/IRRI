@@ -1,4 +1,6 @@
-@extends('layout.app') @section('content') 
+@extends('layout.app') 
+
+@section('content') 
 
 <div class="container-fluid">
   <div class="page-title">
@@ -24,7 +26,21 @@
 </div>
 <!-- Container-fluid starts-->
 <div class="container-fluid">
+  
   <div class="row">
+    <div class="col-sm-12">
+         @if (session('success'))
+            <div class="alert alert-success">
+               {{ session('success') }}
+            </div>
+         @endif
+
+         @if (session('error'))
+            <div class="alert alert-danger">
+               {{ session('error') }}
+            </div>
+         @endif
+      </div>
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
@@ -44,10 +60,13 @@
         
            @foreach ($images as $image)
           <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
+            <a href="#" class="aaa" style="position: absolute;background: #fff;border: 1px dotted;margin:5px" onclick="DeleteFunction('{{$image->id}}','galleries')"><span  class="btn-square  text-danger btn-xs"><i class="fa fa-trash"></i></span></a>
+              
             <a href="{{asset('storage/'.$image->img)}}" itemprop="contentUrl" data-size="1600x950"  class="image-link">
               <img class="img-thumbnail" src="{{asset('storage/'.$image->img)}}" itemprop="thumbnail" alt="Image description">
+              
             </a>
-            <!-- <figcaption itemprop="caption description">Image caption 1</figcaption> -->
+            <span style="color:#7e6d71">{{$image->title??''}}</span>
           </figure>
            @endforeach
 
@@ -126,5 +145,10 @@
             $('#imageModal').modal('show');
         });
     });
+    function DeleteFunction(id,table){
+      DeleteMyData(id,table);
+   }
+  
 </script>
+
 @endsection

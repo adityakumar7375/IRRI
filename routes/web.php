@@ -22,6 +22,7 @@ use Mews\Captcha\Captcha;
 Route::get('/captcha', [Captcha::class, 'create'])->name('captcha');
 Route::get('/sign-up', [UserController::class, 'sign_up'])->name('sign-up');
 Route::post('/sign-up', [RegisterController::class, 'register']);
+Route::get('/sendEmail', [RegisterController::class, 'sendEmail']);
 Route::post('/search-result', [CommonController::class, 'search_result']);
 
 

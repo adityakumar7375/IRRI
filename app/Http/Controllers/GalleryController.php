@@ -11,7 +11,7 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        $images = Gallery::paginate(10);
+        $images = Gallery::where('is_status',true)->paginate(10);
         return view('gallery.index', compact('images'));
     }
 

@@ -37,13 +37,11 @@
 							<h1>Sign Up.</h1> 
 						
 						@if ($errors->any())
+						@foreach ($errors->all() as $error)
 							<div class="alert alert-danger">
-								
-								@foreach ($errors->all() as $error)
 									{{ $error }}
-								@endforeach
-							
 							</div>
+							@endforeach
 						@endif
 						</div>
 

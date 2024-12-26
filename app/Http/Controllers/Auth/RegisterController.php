@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,9 +27,12 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed', // 'confirmed' checks password == cpassword
+            'password' => 'required|string|min:2|confirmed',
             'captcha' => 'required|captcha',
-        ]);
+            ],[
+                'captcha.captcha' => 'The captcha is invalid. Please try again.',
+                'captcha.required' => 'The captcha field is required.'
+            ]);
 
 
         // Create a new user and save it to the database
@@ -65,6 +68,8 @@ class RegisterController extends Controller
             'location' => json_encode($locationData),
             'user_agent' => json_encode($userAgent),
         ]);
+
+        $this->sendEmail($data['email'],$latid);
 
         // Log the user in and redirect to dashboard
         // Auth::loginUsingId(User::latest()->first()->id);
@@ -169,5 +174,19 @@ class RegisterController extends Controller
         }
         return "Desktop";
     }
+
+
+
+    private function sendEmail($email='',$id=''){
+        $Sendemail = isset($email) ? $email : '';
+        $data = ['message' => 'This is a test email.'];
+        Mail::send('emails.index', $data, function ($message) {
+            $email=$Sendemail??'';
+            $message->to($email)->subject('Test Email from Laravel');
+        });
+    }
+
+
+
 
 }
