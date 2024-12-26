@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Gallery;
 use App\Models\State;
 use App\Models\Country;
+use App\Models\Region;
+use App\Models\VarietyCode;
 
 class WebController extends Controller
 {
     public function index(){
-
-        return view('web.home.index');
+        $data['variety']=VarietyCode::where('is_status',1)->get();
+        $data['country']=Country::where('is_status',1)->get();
+        return view('web.home.index',$data);
 
     }
     public function about(){

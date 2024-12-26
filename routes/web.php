@@ -21,6 +21,7 @@ use App\Http\Controllers\CommonController;
 
 Route::get('/sign-up', [UserController::class, 'sign_up'])->name('sign-up');
 Route::post('/sign-up', [RegisterController::class, 'register']);
+Route::post('/search-result', [CommonController::class, 'search_result']);
 
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
@@ -40,6 +41,7 @@ Route::get('/biofortification', [WebController::class, 'biofortification'])->nam
 Route::get('/interative-map', [WebController::class, 'interative_map'])->name('interative-map');
 Route::get('/gallery', [WebController::class, 'gallery'])->name('gallery');
 Route::get('/get-states', [WebController::class, 'getStates']);
+// Route::get('/get-variety', [WebController::class, 'getVariety']);
 
 // UserController
 
@@ -122,9 +124,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/delete/{id}/{any}', [CommonController::class, 'delete'])->name('delete');
     Route::get('/update-status/{id}/{any}/{status}', [CommonController::class, 'update'])->name('update-status');
-    Route::get('/get-states/{country_id}', [CommonController::class, 'getStates'])->name('get-states');
-
+    
 
 });
 
 
+Route::get('/get-states/{country_id}', [CommonController::class, 'getStates'])->name('get-states');
+Route::get('/get-variety/{state_id}', [CommonController::class, 'getVariety'])->name('get-variety');

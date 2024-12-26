@@ -76,9 +76,7 @@
 										<td>{{$list->email}}</td>
 										<td>{{$list->country}}</td>
 										<td>{{$list->state}}</td>
-										<td>-</td>
-										
-										
+										<td><a href="{{route('track.user')}}?search={{$list->mobile}}" target="_blank" rel="noopener noreferrer">Track</a></td>
 									</tr>
 								@endforeach
 								@else

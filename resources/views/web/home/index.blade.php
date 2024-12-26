@@ -60,55 +60,57 @@
 						</div>
 					</div>
 					<div class="col-md-4">
-						<form action="" class="homefilter-field" name="cform" method="post">
+						<form action="" class="homefilter-field" name="" method="post" id="ResultForm">
 							<div class="title-col text-start mb-2">
 								<h2 class="title">Search Filter</h2></div>
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Search by Country</label>
-										<select class="form-control" aria-label="Default select example">
+										<select class="form-control" id="country" name="country"  aria-label="Default select example">
 											<option selected>Select</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
+											@foreach($country as $list)
+											<option value="{{ $list->name }}">{{ $list->name }}</option>
+											@endforeach
 										</select>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Search by State</label>
-										<select class="form-control" aria-label="Default select example">
+										<select class="form-control" id="state" name="state"  aria-label="Default select example">
 											<option selected>Select</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
+										
 										</select>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Search by Variety</label>
-										<input type="text" name="phone" id="phone" class="form-control"> </div>
+										<select class="form-control" id="country" name="country"  aria-label="Default select example">
+											<option selected>Select</option>
+											@foreach($variety as $list)
+											<option value="{{ $list->variety_code }}">{{ $list->name }}</option>
+											@endforeach
+										</select>
+										<!-- <input type="text" name="phone" id="phone" class="form-control"> </div> -->
 								</div>
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Search by Region</label>
-										<select class="form-control" aria-label="Default select example">
+										<select class="form-control" name="region" id="region" aria-label="Default select example">
 											<option selected>Select</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
 										</select>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Search by Special Group</label>
-										<input type="text" id="" name="location" class="form-control" required=""> </div>
+										<input type="text" id="" name="location" class="form-control" > </div>
 								</div>
 								<div class="col-12 mt-2">
 									<div class="form-group">
+										<!-- <input type="submit" name="submit" class="common-btn" id="submit_btn" > -->
 										<input type="submit" name="submit" class="common-btn" id="submit_btn" value="Get Result" data-bs-toggle="modal" data-bs-target="#searchModal">
 									</div>
 								</div>
@@ -161,3 +163,79 @@
 
 
 @endsection 
+
+@section('js')
+<script>
+	$(document).ready(function() {
+      $('#country').on('change', function() {
+          var countryId = $(this).val();
+          if (countryId) {
+              $.ajax({
+                  url: "{{url('get-states')}}/" + countryId,
+                  type: 'GET',
+                  success: function(data) {
+                      $('#state').empty();
+                      $('#state').append('<option selected disabled value="">Choose...</option>');
+                      $.each(data, function(key, value) {
+                          $('#state').append('<option value="' + value.state + '">' + value.state + '</option>');
+                      });
+                  }
+              });
+          } else {
+              $('#state').empty();
+              $('#state').append('<option selected disabled value="">Choose...</option>');
+          }
+      });
+
+	  //    state
+
+      $('#state').on('change', function() {
+          var stateId = $(this).val();
+          if (stateId) {
+              $.ajax({
+                  url: "{{url('get-variety')}}/" + stateId,
+                  type: 'GET',
+                  success: function(data) {
+                      $('#region').empty();
+                      $('#region').append('<option selected disabled value="">Choose...</option>');
+                      $.each(data, function(key, value) {
+                          $('#region').append('<option value="' + value.name + '">' + value.name + '</option>');
+                      });
+                  }
+              });
+          } else {
+              $('#region').empty();
+              $('#region').append('<option selected disabled value="">Choose...</option>');
+          }
+      });
+    });
+
+	// model result
+
+	document.getElementById('ResultForm').addEventListener('submit', function (e) {
+		e.preventDefault();
+		const form = e.target;
+  		const formData = new FormData(this);
+		const modalBody = document.querySelector('#searchModal .modal-body');
+		modalBody.innerHTML = '<p>Please wait...</p>';
+		formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+
+		 $.ajax({
+			url: "{{ url('search-result') }}",
+			method: "POST",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function (response) {
+				// Update modal content with server response
+				$("#searchModal .modal-body").html(response);
+			},
+			error: function (xhr, status, error) {
+				$("#searchModal .modal-body").html('Invalid');
+			},
+		});
+		
+	});
+
+</script>
+@endsection
