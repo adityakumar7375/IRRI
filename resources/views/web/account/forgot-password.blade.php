@@ -46,19 +46,35 @@
 			 </div><!--col-lg-6-->
 			 
 			 <div class="col-lg-6">
-				
+
                 <div class="login-form-col">
+                  @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach
+                @endif
+
                     <div class="login-headcontet"> 
                      <h1>Forgot password.</h1>
                      <p>Your password was emailed to you when the account was created.</p>	
                     </div>
                        
-                    <form class="login-form" name="cform" method="post">
+                    <form class="login-form" action="{{route('forget-password.email')}}"  name="cform" method="post">@csrf
+
+                    
                         <div class="form-group">
                         <label>Email address</label>	
-                        <input type="text" class="form-control" name="userid" id="userid" required="">
+                        <input type="email"  value="{{ old('email') }}"  class="form-control" name="email" id="userid" required="">
                         <div class="login-user-ico"><i class="las la-user"></i></div>
-                        <div class="form-validate-err">Please enter your email id</div>	
+                          @if ($errors->has('email'))
+                              <div class="form-validate-err">{{ $errors->first('email') }}</div>
+                          @endif	
                         </div>
         
                 

@@ -68,7 +68,7 @@
                                  <td>{{$list->name}}</td>
                                  <td>@if($list->status==1)<span class="badge badge-light-success" onclick="ActiveFunction('{{$list->id}}','countries')">Active</span>@else<span class="badge badge-light-danger" onclick="DeactiveFunction('{{$list->id}}','countries')">Deactive</span>@endif</td>
                                  <td class="text-left">
-                                 <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a>
+                                 <!-- <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a> -->
                                  <a href="#" onclick="DeleteFunction('{{$list->id}}','countries')"><button  class="btn btn-outline-danger btn-square btn-xs"><i class="fa fa-trash"></i></button></a>
                                  </td>
                               </tr>
@@ -120,7 +120,7 @@
                                  <td>{{$list->state}}</td>
                                  <td>@if($list->status==1)<span class="badge badge-light-success" onclick="ActiveFunction('{{$list->id}}','states')">Active</span>@else<span class="badge badge-light-danger" onclick="DeactiveFunction('{{$list->id}}','states')">Deactive</span>@endif</td>
                                  <td class="text-left">
-                                 <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a>
+                                 <!-- <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a> -->
                                  <a href="#" onclick="DeleteFunction('{{$list->id}}','states')"><button  class="btn btn-outline-danger btn-square btn-xs"><i class="fa fa-trash"></i></button></a>
                                  </td>
                               </tr>

@@ -46,11 +46,10 @@ class WebController extends Controller
     }
 
     public function interative_map(){
-
+        $data['variety']=VarietyCode::where('is_status',1)->get();
         $data['country']=Country::where('is_status',1)->get();
-        $data['state']=State::where('is_status',1)->get();
+        // $data['state']=State::where('is_status',1)->get();
         return view('web.interative.index',$data);
-
     }
 
     public function getStates(Request $request)
@@ -63,7 +62,7 @@ class WebController extends Controller
 
     public function gallery(){
 
-        $images = Gallery::paginate(50);
+        $images = Gallery::where('is_status',1)->paginate(50);
         return view('web.gallery.index', compact('images'));
         // return view('web.gallery.index');
 

@@ -177,12 +177,11 @@ class RegisterController extends Controller
 
 
 
-    private function sendEmail($email='',$id=''){
-        $Sendemail = isset($email) ? $email : '';
-        $data = ['message' => 'This is a test email.'];
-        Mail::send('emails.index', $data, function ($message) {
-            $email=$Sendemail??'';
-            $message->to($email)->subject('Test Email from Laravel');
+    private function sendEmail($email,$id='001'){
+        $data = ['id' => $id];
+        Mail::send('emails.index', $data, function ($message)  use ($email){
+            $message->from('poojadesigns38@gmail.com', 'IRRI');
+            $message->to($email)->subject('Thankyou for signing up with Us!');
         });
     }
 

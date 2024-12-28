@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\SearchHistory;
 use GuzzleHttp\Client;
+use App\Models\RiceData;
 
 class CommonController extends Controller
 {
@@ -52,6 +53,70 @@ class CommonController extends Controller
         $variety = Region::where('state', $state_id)->where('is_status',true)->get();
         return response()->json($variety);
     }
+    // map_search_result
+
+
+
+    public function map_search_result(Request $request){
+        if(empty($request->country)){
+            $data['data'] = 'Not found';
+            
+            //  $data['data']=RiceData::select('id','state')->first();
+            return response()->json($data);
+        }else{
+            // $data['data']=RiceData::select('id','state')->first();
+            $query = RiceData::query();
+
+            if ($request->has('country') && !empty($request->country)) {
+                $query->whereRaw('UPPER(country) = ?', [strtoupper($request->country)]);
+            }
+            
+            if ($request->has('state') && !empty($request->state)) {
+                $states = explode(',', strtoupper($request->state)); // Split if multiple states are provided
+                foreach ($states as $state) {
+                    $query->whereRaw("FIND_IN_SET(UPPER(?), UPPER(state))", [trim($state)]);
+                }
+            }
+            
+            if ($request->has('variety') && !empty($request->variety)) {
+                $query->whereRaw('UPPER(variety_code) = ?', [strtoupper($request->variety)]);
+            }
+
+            if ($request->has('region') && !empty($request->region)) {
+                $query->whereRaw('UPPER(region) = ?', [strtoupper($request->region)]);
+            }
+
+            if ($request->has('location') && !empty($request->location)) {
+                $query->where('special_group', $request->location);
+            }
+            
+            // Get the filtered data
+            $results = $query->get();
+            $statesArray = $results->pluck('state')->toArray();
+
+            // Flatten the array if the states are stored as comma-separated values
+            $mergedStates = [];
+            foreach ($statesArray as $stateList) {
+                $stateItems = explode(',', $stateList);
+                $mergedStates = array_merge($mergedStates, array_map('trim', $stateItems));
+            }
+
+            $uniqueStates = array_unique($mergedStates);
+
+            // If you want to reset the array keys (optional)
+            $uniqueStates = array_values($uniqueStates);
+
+            $data['data'] = $uniqueStates;
+            
+            //  $data['data']=RiceData::select('id','state')->first();
+            return response()->json($data);
+            
+        }
+    }
+
+
+
+
     // search_result
     public function search_result(Request $request){
 
@@ -82,7 +147,7 @@ class CommonController extends Controller
 
 
 
-        echo $html='
+        $html='
         <div class="searchpopup-sec">
             <div class="row">
                 <div class="col-md-6">
@@ -160,9 +225,15 @@ class CommonController extends Controller
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="popupmsg mt-2"><a href="login.html" class="common-btn">Login to more info</a></div>
-                    </div>
+                        </div>';
+                        if(!empty(Auth::user()->id)){
+                            $html.='<div class="popupmsg mt-2"><a href="results" class="common-btn">View full details</a></div>';
+                        }else{
+                            $html.='<div class="popupmsg mt-2"><a href="login" class="common-btn">Login to more info</a></div>';
+                        }
+                        
+                       
+                    $html.='</div>
                 </div>
                 <div class="col-md-6">
                     <div class="popup-image"><img src="http://localhost/noida/v2/public/web/images/popup-image.jpg" class="img-responsive" alt=""></div>
@@ -170,6 +241,8 @@ class CommonController extends Controller
             </div>
         </div>
         ';
+
+        echo $html;
     }
 
 

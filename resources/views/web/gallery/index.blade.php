@@ -55,7 +55,14 @@
 
 	<div class="row gallery">
 		@foreach ($images as $image)
-		<div class="col-sm-6 col-md-3 wow zoomInUp"><a href="{{asset('storage/'.$image->img)}}"><img src="{{asset('storage/'.$image->img)}}" alt=""></a></div>
+		<div class="col-sm-6 text-center col-md-3 wow zoomInUp">
+      <div class="card">
+        <a href="{{asset('storage/'.$image->img)}}">
+        <img src="{{asset('storage/'.$image->img)}}" alt="">
+      </a>
+      <h6>{{$image->title}}</h6>
+      </div>
+    </div>
 		@endforeach
 		<!-- <div class="col-sm-6 col-md-3 wow zoomInUp"><a href="{{asset('public/web')}}/images/gallery-2.jpg"><img src="{{asset('public/web')}}/images/gallery-2.jpg" alt=""></a></div>
 		

@@ -1,6 +1,8 @@
 @extends('layout.app')
+
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid dashboard-2">
+
    <div class="page-title">
       <div class="row">
          <div class="col-6">
@@ -23,9 +25,10 @@
    </div>
 </div>
 <div class="row size-column">
-   <div class="col-xxl-12 box-col-12">
+   <div class="col-xxl-9 box-col-12">
+      
       <div class="row">
-         <div class="col-xl-2 col-sm-4">
+         <div class="col-xl-3 col-sm-4">
             <div class="card o-hidden small-widget">
                <a href="{{route('location')}}">
                   <div class="card-body total-project border-b-danger border-2">
@@ -59,7 +62,7 @@
                </a>
             </div>
          </div>
-         <div class="col-xl-2 col-sm-4">
+         <div class="col-xl-3 col-sm-4">
             <div class="card o-hidden small-widget">
                <a href="{{route('location')}}">
                   <div class="card-body total-project border-b-primary border-2">
@@ -93,7 +96,7 @@
                </a>
             </div>
          </div>
-         <div class="col-xl-2 col-sm-4">
+         <div class="col-xl-3 col-sm-4">
             <div class="card o-hidden small-widget">
                <a href="{{route('region')}}">
                   <div class="card-body total-Progress border-b-warning border-2">
@@ -125,7 +128,7 @@
                </a>
             </div>
          </div>
-         <div class="col-xl-2 col-sm-4">
+         <div class="col-xl-3 col-sm-4">
             <div class="card o-hidden small-widget">
                <a href="{{route('variety.code')}}">
                   <div class="card-body total-Complete border-b-secondary border-2">
@@ -157,7 +160,7 @@
                </a>
             </div>
          </div>
-         <div class="col-xl-2 col-sm-4">
+         <div class="col-xl-3 col-sm-4">
             <div class="card o-hidden small-widget">
                <a href="{{route('gallery.index')}}">
                   <div class="card-body total-upcoming">
@@ -190,7 +193,10 @@
             </div>
          </div>
 
-		 <div class="col-xl-3"> 
+      </div>
+      <div class="row">
+
+		 <div class="col-xl-4"> 
                   <div class="card"> 
 					<a href="{{route('user.list')}}">
                     <div class="card-body new-product">
@@ -214,7 +220,7 @@
                   </div>
         	</div>
 
-		<div class="col-xl-3"> 
+		<div class="col-xl-4"> 
                   <div class="card">
 					<a href="{{route('track.user')}}">
                     <div class="card-body new-product">
@@ -240,7 +246,7 @@
 		
 		
 
-		<div class="col-xl-3"> 
+		<div class="col-xl-4"> 
                   <div class="card">
 					<a href="{{route('history.list')}}">
                     <div class="card-body new-product">
@@ -266,7 +272,7 @@
 
 
 
-		<div class="col-xl-3"> 
+		<div class="col-xl-4"> 
                   <div class="card">
 					<a href="{{route('upload-excle')}}">
                     <div class="card-body new-product">
@@ -293,11 +299,19 @@
 		 
       </div>
    </div>
-   <!--<div class="col-xxl-3 d-xxl-block d-none activity-group box-col-none">
-      <div class="card add-project-link">
-         <div class="categories"> </div>
-         <div class="categories-content"> <span class="text-truncate col-8 f-12 d-block mb-2">Let’s add work to your space</span><a href="projectcreate.html">+Add Project </a></div>
+   <div class="col-xxl-3 d-xxl-block d-none activity-group box-col-none">
+      <div class="col-xl-12 col-md-6">
+      <div class="card overflow-hidden"> 
+         <div class="card-body pt-0 project-ideas-card">
+         <div class="project-card">
+            <div><span class="f-22 f-w-500 text-center">Get more ideas for your important project</span>
+               <div class="btn-showcase text-center"> <a href="{{route('index')}}" target="_blank"> 
+                  <button class="btn btn-pill btn-outline-primary-2x b-r-8 active">Go to Website</button></a></div>
+            </div>
+         </div>
+         </div>
       </div>
-   </div>-->
+   </div>
+   </div>
 </div>
 @endsection

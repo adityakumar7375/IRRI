@@ -40,17 +40,18 @@
       <div class="col-sm-12">
          <div class="card">
             <div class="card-header">
-               <h4>Create New</h4>
+               <h4> {{@$update->id==''?'Create New':'Update Details'}}</h4>
             </div>
             <div class="card-body">
                <form class="row g-3   custom-input submitForm" action="{{ route('region.store') }}" method="post">
                   @csrf
+                  <input type="hidden" name="id" value="{{$update->id??''}}">
                   <div class="col-md-4 position-relative">
                      <label class="form-label" for="validationTooltip04">Country</label>
                      <select class="form-select" id="country" name="country" required>
                         <option selected disabled value="">Choose...</option>
                         @foreach($country as $list)
-                        <option value="{{ $list->name }}">{{ $list->name }}</option>
+                        <option @if(@$update->country==$list->name) selected @endif value="{{ $list->name }}">{{ $list->name }}</option>
                         @endforeach
                     </select>
                   </div>
@@ -58,14 +59,19 @@
                      <label class="form-label" for="validationTooltip04">State</label>
                      <select class="form-select" id="state" name="state" required>
                         <option selected disabled value="">Choose...</option>
+                        @if(!empty($update->id))
+                           @foreach($state as $name)
+                              <option @if(@$update->state==@$name->state) selected @endif  value="{{$name->state}}">{{$name->state}}</option>
+                           @endforeach
+                        @endif
                     </select>
                   </div>
                   <div class="col-md-4 position-relative">
                      <label class="form-label" for="validationTooltip01">Region</label>
-                     <input class="form-control" name="name" type="text" placeholder="Region Name" required="">
+                     <input class="form-control" name="name" type="text" value="{{@$update->name}}" placeholder="Region Name" required="">
                   </div>
                   <div class="col-12">
-                     <button class="btn btn-primary" type="submit">Submit</button>
+                     <button class="btn btn-primary" type="submit">{{@$update->id==''?'Submit':'Update'}}</button>
                   </div>
                </form>
             </div>
@@ -80,6 +86,7 @@
                <hr>
 						<form method="GET" action="{{ route('region') }}" >
 							<!-- Search field -->
+                     
 							<div class="row">
 								<div class="col-sm-4">
 									<input type="text" name="search" value="{{ request('search') }}" placeholder="Search..." class="form-control">
@@ -119,7 +126,7 @@
                               <td>{{$list->state}}</td>
                               <td>@if($list->status==1)<span class="badge badge-light-success" onclick="ActiveFunction('{{$list->id}}','regions')">Active</span>@else<span class="badge badge-light-danger" onclick="DeactiveFunction('{{$list->id}}','regions')">Deactive</span>@endif</td>
                               <td class="text-left">
-                                 <a href="#"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a>
+                                 <a href="{{route('region.update',['id' => $list->id])}}"><button class="btn btn-outline-info btn-square btn-xs"><i class="fa fa-pencil-alt  "></i></button></a>
                                  <a href="#" onclick="DeleteFunction('{{$list->id}}','regions')"><button  class="btn btn-outline-danger btn-square btn-xs"><i class="fa fa-trash"></i></button></a>
                               </td>
                            </tr>

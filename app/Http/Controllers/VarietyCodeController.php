@@ -9,9 +9,21 @@ use App\Models\VarietyCode;
 
 class VarietyCodeController extends Controller
 {
-    public function index()
+    public function index(Request $request,$id='')
     {
-        $data['variety']=VarietyCode::where('is_status',1)->get();
+
+        if(!empty($id)){
+            $data['update']=VarietyCode::where('id',$id)->first();
+        }
+       $search = $request->input('search'); // Get the search input from the request
+
+        $data['variety'] = VarietyCode::where('is_status', 1)
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'LIKE', '%' . $search . '%')
+                            ->orWhere('variety_code', 'LIKE', '%' . $search . '%');
+            })
+            ->get();
+
         return view('variety.index',$data);
     }
 
@@ -20,11 +32,11 @@ class VarietyCodeController extends Controller
     {
         
         if ($request->isMethod('post')) {
-            $data = $request->only(['name','variety_code','img']);
+            $data = $request->only(['id','name','variety_code','img']);
             $validator = Validator::make($data, [
                 'name' => 'required',
                 'variety_code' => 'required',
-                'img' => 'required',
+                // 'img' => 'required',
             ]);
     
             
@@ -35,18 +47,47 @@ class VarietyCodeController extends Controller
                 ]);
             }
 
-            if (VarietyCode::where('variety_code', strtoupper($request->variety_code))->exists()) {
-                return response()->json([
-                    'error' => 201,
-                    'msg' => 'The variety code already exists.',
-                ]);
-            }
     
             $imgurl = '';
             if ($request->hasFile('img')) {
                 $file = $request->file('img');
                 $imgurl = $file->store('variety', 'public');
             }
+
+            if (!empty($data['id'])) {
+                
+                $variety = VarietyCode::find($data['id']);
+
+                if ($variety) {
+                    $variety->update([
+                        'name' => strtoupper($data['name']),
+                        'variety_code' => strtoupper($request->variety_code),
+                        'img' => $imgurl ? 'app/public/' . $imgurl : $variety->img,
+                    ]);
+                    return response()->json([
+                        'error' => 200,
+                        'url'=>url('variety/code'),
+                        'msg'=>'Update Successfully',
+                    ]);
+                } else {
+                    return response()->json([
+                        'error' => 201,
+                        'url'=>'',
+                        'msg'=>'Invalid Id',
+                    ]);
+                }
+
+            }
+
+            
+            if (VarietyCode::where('variety_code', strtoupper($request->variety_code))->exists()) {
+                return response()->json([
+                    'error' => 201,
+                    'msg' => 'The variety code already exists.',
+                ]);
+            }
+
+            
             VarietyCode::create([
                 'name' =>strtoupper($request->name),
                 'variety_code' => strtoupper($request->variety_code),
@@ -54,6 +95,7 @@ class VarietyCodeController extends Controller
                 'status' => true,
                 'is_status' => true,
             ]);
+            
     
             // Return success response
             return response()->json([

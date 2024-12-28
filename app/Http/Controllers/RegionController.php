@@ -13,11 +13,22 @@ class RegionController extends Controller
 {
     //region
 
-    public function index(Request $request)
+    public function index(Request $request,$id='')
     {
-        $data['country']=Country::where('is_status',1)->get();
-        $data['state']=State::where('is_status',1)->get();
 
+
+        $data['country']=Country::where('is_status',1)->get();
+        // $data['state']=State::where('is_status',1)->get();
+        
+        if(!empty($id)){
+            $data['update']=Region::where('id',$id)->first();
+            $data['state']=State::where('country',$data['update']->country)->get();
+        }
+         
+        // echo "<pre>";
+        // var_dump($data);
+        // die;
+       
         $search = $request->input('search'); // Get search term from input
 
         $data['region'] = Region::where('is_status', 1)
@@ -30,9 +41,7 @@ class RegionController extends Controller
             ->paginate(50);
 
 
-       
         return view('region.index',$data);
-
 
     }
 
@@ -40,7 +49,7 @@ class RegionController extends Controller
     public function store(Request $request) 
     {
         if ($request->isMethod('post')) {
-            $data = $request->only(['name','state','country']);
+            $data = $request->only(['id','name','state','country']);
             $validator = Validator::make($data, [
                 'name' => 'required',
                 'country' => 'required',
@@ -54,6 +63,28 @@ class RegionController extends Controller
                     'errors' => $validator->errors()
                 ]);
             }
+            
+            if(!empty($data['id'])){
+                $region = Region::find($data['id']);
+                if ($region) {
+                    $region->update([
+                        'name' => strtoupper($data['name']),
+                        'country' => strtoupper($data['country']),
+                        'state' => strtoupper($data['state']),
+                    ]);
+                    return response()->json([
+                        'error' => 200,
+                        'url'=>url('region'),
+                        'msg'=>'Update Successfully',
+                    ]);
+                } else {
+                    return response()->json([
+                        'error' => 201,
+                        'url'=>'',
+                        'msg'=>'Invalid Id',
+                    ]);
+                }
+            }   
             Region::create([
                 'name' => strtoupper($data['name']),
                 'country' => strtoupper($data['country']),
@@ -61,9 +92,11 @@ class RegionController extends Controller
                 'status' => true,
                 'is_status' => true,
             ]);
+
+
             return response()->json([
                 'error' => 200,
-                'url'=>'region',
+                'url'=>url('region'),
                 'msg'=>'Create Successfully',
             ]);
         }

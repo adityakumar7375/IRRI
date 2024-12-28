@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
@@ -24,6 +24,7 @@ Route::get('/sign-up', [UserController::class, 'sign_up'])->name('sign-up');
 Route::post('/sign-up', [RegisterController::class, 'register']);
 Route::get('/sendEmail', [RegisterController::class, 'sendEmail']);
 Route::post('/search-result', [CommonController::class, 'search_result']);
+Route::post('/map-search-result', [CommonController::class, 'map_search_result']);
 
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
@@ -31,6 +32,10 @@ Route::post('/login', [LoginController::class, 'login']);
 
 
 Route::get('/forgot-password', [UserController::class, 'forgot_password'])->name('forgot-password');
+// Route::post('/forgot-password/send-email', [UserController::class, 'forgot_password_validate'])->name('forgot-password.email');
+Route::post('/forget-password/email', [UserController::class, 'sendResetLink'])->name('forget-password.email');
+Route::get('/reset-password', [UserController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('password.update');
 
 
 //WebController
@@ -82,21 +87,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/store', [GalleryController::class, 'store'])->name('store');
 
     // account
-        Route::get('/location', [LocationController::class, 'index'])->name('location');
-        Route::post('/state', [LocationController::class, 'state'])->name('state');
-        Route::post('/country', [LocationController::class, 'country'])->name('country');
-    
+    Route::get('/location', [LocationController::class, 'index'])->name('location');
+    Route::post('/state', [LocationController::class, 'state'])->name('state');
+    Route::post('/country', [LocationController::class, 'country'])->name('country');
+
 
     // upload-excle
-    
     Route::post('/upload-bulk-data', [CsvImportController::class, 'upload'])->name('upload.bulk.data');
     Route::get('/upload-excle', [CsvImportController::class, 'index'])->name('upload-excle');
     Route::get('csv/import', [CsvImportController::class, 'showForm']);
     Route::post('csv/import', [CsvImportController::class, 'import'])->name('csv.import');
     
     Route::get('csv/detail/{id}', [CsvImportController::class, 'detail'])->name('csv.detail');
-
-
 
 
     // UserAdminController
@@ -115,12 +117,14 @@ Route::middleware('auth')->group(function () {
     //VarietyCodeController
     Route::get('/variety/code', [VarietyCodeController::class, 'index'])->name('variety.code'); 
     Route::post('/variety/store', [VarietyCodeController::class, 'store'])->name('variety.store'); 
+    Route::get('/variety/{id}', [VarietyCodeController::class, 'index'])->name('variety.update');
 
 
     //RegionController
 
     Route::get('/region', [RegionController::class, 'index'])->name('region'); 
     Route::post('/region/store', [RegionController::class, 'store'])->name('region.store'); 
+    Route::get('/region/{id}', [RegionController::class, 'index'])->name('region.update');
 
     //  commoun model
 

@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Hash;
 class UserController extends Controller
 {
@@ -116,7 +118,45 @@ class UserController extends Controller
 
     }
 
+    // forgot_password_validate
 
+    public function sendResetLink(Request $request){
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.required' => 'Email is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.exists' => 'This email is not registered.',
+        ]);
+        
+        // Generate a new password
+        $new_password = Str::random(8);
+
+        // Fetch the user and update the password securely
+        $user = User::where('email', $request->email)->first();
+        $user->password = Hash::make($new_password); // Hash the password before saving
+        $user->save();
+
+        // Prepare email data
+        $email = $user->email;
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'new_password' => $new_password, // Include the new password in the email
+        ];
+
+        // Send the reset email
+        Mail::send('emails.forget', $data, function ($message) use ($email) {
+            $message->from('poojadesigns38@gmail.com', 'IRRI');
+            $message->to($email)->subject('Your Password Has Been Reset');
+        });
+        
+        return back()->with('success', 'New password generated and sent successfully.');
+    }
+
+
+    
+    
 
 
 
